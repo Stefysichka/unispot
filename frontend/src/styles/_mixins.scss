@@ -1,0 +1,20 @@
+// _mixins.scss
+
+// Button style mixin
+@mixin button-style($color) {
+  background-color: $color;
+  padding: $padding-small $padding-medium;
+  border-radius: $border-radius;
+  color: $button-text-color;
+  border: none;
+  cursor: pointer;
+  font-size: $font-size-medium;
+
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

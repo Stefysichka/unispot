@@ -1,0 +1,50 @@
+// pages.scss
+// Import variables
+@import './variables';
+// Import mixins
+@import './mixins';
+
+
+.home {
+  text-align: center;
+  padding: $padding-large;
+
+  h2 {
+    font-size: 2rem;
+    color: $primary-color;
+  }
+
+  p {
+    font-size: $font-size-medium;
+  }
+}
+
+.register,
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $background-color;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-unit;
+    background-color: $white;
+    padding: $padding-large;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    input {
+      padding: $padding-small;
+      font-size: $font-size-medium;
+      border: 1px solid #ccc;
+      border-radius: $border-radius;
+    }
+
+    button {
+      @include button-style($primary-color);
+    }
+  }
+}

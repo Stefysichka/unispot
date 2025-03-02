@@ -1,0 +1,53 @@
+// components.scss
+@import './variables';
+// Import mixins
+@import './mixins';
+
+
+.navbar {
+  background-color: $primary-color;
+  padding: $padding-small;
+  color: $white;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: $spacing-unit;
+
+    li {
+      a {
+        color: $white;
+        font-size: $font-size-medium;
+        padding: $padding-small;
+        &:hover {
+          background-color: $secondary-color;
+          border-radius: $border-radius;
+        }
+      }
+    }
+  }
+}
+
+button {
+  @include button-style($primary-color);
+}
+
+// Parking Map Component
+.parking-map {
+  padding: $padding-large;
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: $font-size-large;
+  }
+
+  p {
+    font-size: $font-size-small;
+  }
+}

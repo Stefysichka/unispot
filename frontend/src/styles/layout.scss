@@ -1,0 +1,19 @@
+// layout.scss
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $padding-large;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-unit;
+}
+
+.col {
+  flex: 1;
+  padding: $spacing-unit;
+}
