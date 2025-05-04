@@ -1,43 +1,60 @@
-// pages.scss
-// Import variables
 @import './variables';
-// Import mixins
 @import './mixins';
-
+@import './base';
 
 .home {
-  text-align: center;
-  padding: $padding-large;
+  padding-left: $padding-qwarto;
+  padding-right: $padding-qwarto;
 
-  h2 {
-    font-size: 2rem;
-    color: $primary-color;
-  }
+  .about {
+    display: grid;
+    align-items: stretch; 
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+    
+    p{
+      font-size: $font-size-medium;
+      grid-column: span 2;
+    }
+    img {
+      height: 22vw;
+      width: 22vw;
+    }
 
-  p {
-    font-size: $font-size-medium;
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      padding-left: $padding-large;
+      padding-top: $padding-large;
+      gap: $spacing-unit;
+
+      li {
+        color: $text-color;
+      }
+    }
   }
 }
+
 
 .register,
 .login {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: $background-color;
 
   form {
     display: flex;
     flex-direction: column;
     gap: $spacing-unit;
-    background-color: $white;
     padding: $padding-large;
     border-radius: $border-radius;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+    max-width: 400px;
+    
     input {
-      padding: $padding-small;
+      padding: $padding-medium;
       font-size: $font-size-medium;
       border: 1px solid #ccc;
       border-radius: $border-radius;
@@ -46,5 +63,52 @@
     button {
       @include button-style($primary-color);
     }
+  }
+}
+
+.account-page,
+.logout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: left;
+  width: 100%;
+
+  input {
+    width: 100%;
+    max-width: 500px; 
+    padding: $padding-med;   
+    margin: $margin-small 0;  
+    font-size: $font-size-large; 
+  }
+
+  p{
+    font-size: $font-size-large; 
+  }
+  button {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+  }
+}
+
+.parking-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  margin-top: $margin-medium;
+  #map {
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    overflow: hidden;
   }
 }

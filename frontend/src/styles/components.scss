@@ -1,18 +1,31 @@
-// components.scss
 @import './variables';
-// Import mixins
 @import './mixins';
-
+@import './base';
 
 .navbar {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
   background-color: $primary-color;
   padding: $padding-small;
   color: $white;
 
-  h1 {
-    font-size: 1.5rem;
-  }
+  .user-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    flex-shrink: 0;
 
+    img {
+      height: 44px;
+      width: 44px;
+    }
+
+    p {
+      font-size: $font-size-small;
+      margin: 0; 
+    }
+  }
   ul {
     list-style: none;
     display: flex;
@@ -22,32 +35,67 @@
       a {
         color: $white;
         font-size: $font-size-medium;
-        padding: $padding-small;
+        padding: $padding-med;
+
         &:hover {
           background-color: $secondary-color;
-          border-radius: $border-radius;
         }
       }
     }
   }
 }
 
+
 button {
   @include button-style($primary-color);
 }
 
-// Parking Map Component
-.parking-map {
-  padding: $padding-large;
-  background-color: $white;
+.booking-form {
+  position: fixed; 
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; 
+  
+
+  display: flex;
+  flex-direction: column;
+  color: $white;
+  width: 80%; 
+  max-width: 600px; 
+  padding: 30px; 
+  background-color: $background-color;
   border-radius: $border-radius;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 
   h2 {
-    font-size: $font-size-large;
+    margin-bottom: $margin-small;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: $margin-small;
+    width: 100%;
+    max-width: 580px; 
   }
 
-  p {
-    font-size: $font-size-small;
+
+  button{
+    width: 100%;
+    max-width: 580px; 
+    background-color: $second-color;
+  }
+  button:hover{
+    background-color: $secondary-color;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
   }
 }

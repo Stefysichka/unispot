@@ -1,8 +1,7 @@
-// _mixins.scss
 
-// Button style mixin
 @mixin button-style($color) {
   background-color: $color;
+  margin-top: $margin-medium;
   padding: $padding-small $padding-medium;
   border-radius: $border-radius;
   color: $button-text-color;
@@ -11,7 +10,7 @@
   font-size: $font-size-medium;
 
   &:hover {
-    background-color: darken($color, 10%);
+    background-color: secondary-color;
   }
 
   &:focus {

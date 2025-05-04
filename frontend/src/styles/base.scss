@@ -1,39 +1,28 @@
-// base.scss
 
-// Body font size and line height
 body {
   font-size: $font-size-medium;
   line-height: 1.6;
 }
 
-// Links
 a {
   text-decoration: none;
-  color: $primary-color;
+  color: $text-color;
 
   &:hover {
     text-decoration: underline;
   }
 }
 
-// Headings
-h1, h2, h3, h4, h5, h6 {
-  color: $text-color;
+h2 {
+  padding-top: $padding-medium;
+  text-align: center;
+  font-size: $font-size-xlarge;
+  color: $white;
   font-weight: bold;
 }
 
-h1 {
-  font-size: 2rem;
-}
-
-h2 {
-  font-size: 1.75rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
-
-h4 {
-  font-size: 1.25rem;
+p, label {
+  font-size: 1.1rem;
+  color: $paragraph-color;
+  margin-top: $margin-medium;
 }
