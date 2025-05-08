@@ -57,7 +57,6 @@
       padding: $padding-medium;
       font-size: $font-size-medium;
       border: 1px solid #ccc;
-      border-radius: $border-radius;
     }
 
     button {
@@ -66,8 +65,7 @@
   }
 }
 
-.account-page,
-.logout {
+.account-page{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,16 +85,26 @@
   p{
     font-size: $font-size-large; 
   }
-  button {
+  button{
+    width: 100%;
+    max-width: 500px; 
+    font-size: 1.2rem;
+    background-color: $primary-color;
+  }
+  button:hover{
+    background-color: $secondary-color;
+  }
+  a {
     width: 100%;
     max-width: 500px;
-    padding: 15px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $margin-small;
+    font-size: $font-size-large;
+    text-decoration: underline;
+  }
+   a:hover {
+    color: $primary-color;
   }
 }
 
@@ -112,3 +120,248 @@
     overflow: hidden;
   }
 }
+
+.my-bookings {
+  .booking-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: $width-medium;
+    margin: $margin-large auto;
+  
+    .booking-item {
+      padding: $padding-medium;
+      margin-bottom: $margin-medium;
+      background-color: $primary-color;
+      
+      div{
+        color: $text-color;
+      }
+      button {
+        width: 100%;
+        @include button-style($primary-color);
+      }
+
+      .edit-form{
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-unit;
+        margin-top: $margin-medium;
+        max-width: 100%; 
+        
+        input {
+          padding: $padding-small;
+          font-size: $font-size-medium;
+        }
+      }
+    }
+  }
+  
+}
+
+.admin-dashboard {
+  .admin-controls {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      @include button-style($primary-color);
+    }
+  }
+
+  .admin-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: $margin-small;
+    padding: $padding-large;
+    background-color: $primary-color;
+  }
+
+  .admin-users {
+    margin: $margin-medium $margin-xxlarge;
+    padding: $padding-small;
+    background-color: $primary-color;
+    color: $paragraph-color;
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        background-color: $second-color;
+        padding: $padding-med;
+        margin-bottom: $margin-small;
+        border-radius: $border-radius;
+  
+        .user-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: $spacing-unit;
+  
+          span {
+            font-size: $font-size-medium;
+            color: $white;
+          }
+  
+          .buttons {
+            display: flex;
+            flex-direction: column; 
+  
+            button {
+              @include button-style($primary-color);
+            }
+          }
+        }
+  
+        form.edit-form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: $spacing-unit;
+          width: 100%;
+  
+          .edit-form-fields {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: $margin-small;
+  
+            input[type="text"],
+            input[type="email"] {
+              width: 100%;
+              padding: $padding-small;
+              border: 1px solid $white;
+              border-radius: $border-radius;
+              color: $text-color;
+            }
+  
+            label {
+              display: flex;
+              align-items: center;
+              font-size: $font-size-small;
+              color: $paragraph-color;
+  
+              input[type="checkbox"] {
+                margin-right: $margin-small;
+              }
+            }
+          }
+  
+          .edit-form-buttons {
+            display: flex;
+            flex-direction: column; 
+  
+            button {
+              @include button-style($primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .admin-spots {
+    margin: $margin-medium $margin-xxlarge;
+    padding: $padding-small;
+    background-color: $primary-color;
+    color: $paragraph-color;
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: $spacing-unit;
+      margin-bottom: $margin-medium;
+
+      input[type="text"],
+      select {
+        margin-top: $margin-small;
+        padding: $padding-small;
+        border-radius: $border-radius;
+        color: $text-color;
+        font-size: $font-size-small;
+        height: 35px;
+        
+      }
+
+      button {
+        @include button-style($primary-color);
+        align-self: flex-start;
+        padding: $padding-small;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: $padding-small;
+        margin-bottom: $margin-small;
+        border-radius: $border-radius;
+        background-color: $second-color;
+
+        .spot-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+
+          span {
+            font-size: $font-size-medium;
+            color: $white;
+          }
+
+          .buttons {
+            display: flex;
+            flex-direction: column;
+
+            button {
+              @include button-style($primary-color);
+            }
+          }
+        }
+
+        form.edit-form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: $spacing-unit;
+          width: 100%;
+
+          .edit-form-fields {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: $margin-small;
+
+            input[type="text"],
+            select {
+              box-sizing: border-box;
+              width: 100%;
+              padding: $padding-small;
+              border: 1px solid $white;
+              border-radius: $border-radius;
+              background-color: $primary-color;
+              color: $white;
+              font-size: $font-size-small;
+            }
+          }
+
+          .edit-form-buttons {
+            display: flex;
+            flex-direction: column;
+
+            button {
+              @include button-style($primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}  

@@ -31,7 +31,7 @@ const ParkingMap = () => {
             if (spot.latitude && spot.longitude) {
               L.marker(
                 [spot.latitude, spot.longitude]
-                // { icon: customIcon } // ← раптом захочеш кастомну іконку
+                // { icon: customIcon } 
               )
                 .addTo(map)
                 .bindPopup(spot.location)

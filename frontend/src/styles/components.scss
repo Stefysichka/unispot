@@ -7,7 +7,7 @@
   align-items: center; 
   justify-content: space-between;
   background-color: $primary-color;
-  padding: $padding-small;
+  padding: $padding-small $padding-large $padding-small $padding-small;
   color: $white;
 
   .user-logo {
@@ -34,7 +34,7 @@
     li {
       a {
         color: $white;
-        font-size: $font-size-medium;
+        font-size: $font-size-small;
         padding: $padding-med;
 
         &:hover {
@@ -62,7 +62,7 @@ button {
   flex-direction: column;
   color: $white;
   width: 80%; 
-  max-width: 600px; 
+  max-width: $width-medium; 
   padding: 30px; 
   background-color: $background-color;
   border-radius: $border-radius;

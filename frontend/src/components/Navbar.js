@@ -4,6 +4,7 @@ import "../styles/components.scss";
 
 const Navbar = () => {
   const [userName, setUserName] = useState("");
+  const [isSuperuser, setIsSuperuser] = useState(false); 
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -13,7 +14,9 @@ const Navbar = () => {
       })
         .then(res => res.json())
         .then(data => {
+          console.log('USER DATA:', data);
           if (data.username) setUserName(data.username);
+          if (data.is_superuser) setIsSuperuser(data.is_superuser);
         });
     }
   }, []);
@@ -28,8 +31,11 @@ const Navbar = () => {
       <ul>
         <li><Link to="/">Головна сторінка</Link></li>
         <li><Link to="/map">Карта</Link></li>
+        <li><Link to="/bookings">Мої бронювання</Link></li>
         <li><Link to="/account">Аккаунт</Link></li>
-        <li><Link to="/logout">Вийти</Link></li>
+        {isSuperuser && (  
+          <li><Link to="/admin">Адмін</Link></li>
+        )}
       </ul>
     </nav>
   );

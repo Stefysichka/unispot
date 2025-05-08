@@ -1,11 +1,16 @@
 from rest_framework import generics, permissions
 from .models import ParkingSpot, Booking
 from .serializers import ParkingSpotSerializer, BookingSerializer
+from rest_framework.permissions import IsAdminUser
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from users.models import User
+from .permissions import IsAdminOrReadOnly
 
 class ParkingSpotListCreateView(generics.ListCreateAPIView):
     queryset = ParkingSpot.objects.all()
     serializer_class = ParkingSpotSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
 
 
     def perform_create(self, serializer):
@@ -18,7 +23,7 @@ class ParkingSpotListCreateView(generics.ListCreateAPIView):
 class ParkingSpotRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ParkingSpot.objects.all()
     serializer_class = ParkingSpotSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
 
 class BookingListCreateView(generics.ListCreateAPIView):
     queryset = Booking.objects.all()
@@ -27,3 +32,17 @@ class BookingListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class AdminStatisticsView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        users_count = User.objects.count()
+        spots_count = ParkingSpot.objects.count()
+        bookings_count = Booking.objects.count()
+        return Response({
+            'total_users': users_count,
+            'total_parking_spots': spots_count,
+            'total_bookings': bookings_count
+        })

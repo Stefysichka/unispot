@@ -5,8 +5,13 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ParkingMap from "./pages/ParkingMap";
-import Logout from "./pages/Logout";
 import Account from "./pages/Account";
+import AccountPage from './pages/Account';
+import AdminUsers from './pages/AdminUsers';
+import AdminSpots from './pages/AdminSpots';
+import AdminStats from './pages/AdminStats';
+import AdminDashboard from './pages/AdminDashboard';
+import MyBookings from "./pages/Bookings";
 import "./styles/main.scss";
 
 function App() {
@@ -21,17 +26,20 @@ function App() {
 
   return (
     <Router>
-      {/* Якщо користувач авторизований, показуємо Navbar */}
       {isAuthenticated && <Navbar />}
       <Routes>
-        {/* Якщо користувач авторизований, перенаправляємо на головну */}
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/map" element={isAuthenticated ? <ParkingMap /> : <Navigate to="/login" />} />
-        <Route path="/logout" element={<Logout setIsAuthenticated = {setIsAuthenticated}/>} />
         <Route path="/account" element = {<Account />} />
         <Route path="/home" element = {<Home />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/spots" element={<AdminSpots />} />
+        <Route path="/admin/stats" element={<AdminStats />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/bookings" element={<MyBookings />} />
       </Routes>
     </Router>
   );
