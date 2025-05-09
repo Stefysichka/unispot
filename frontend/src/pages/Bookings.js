@@ -4,11 +4,10 @@ import axios from 'axios';
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [newDate, setNewDate] = useState('');
   const [newStartTime, setNewStartTime] = useState('');
   const [newEndTime, setNewEndTime] = useState('');
 
-  useEffect(() => {
+  const fetchBookings = () => {
     const token = localStorage.getItem('token');
     axios.get('http://127.0.0.1:8000/api/parking/bookings/', {
       headers: { Authorization: `Bearer ${token}` }
@@ -19,28 +18,52 @@ const MyBookings = () => {
     .catch(error => {
       console.error('Error fetching bookings:', error);
     });
+  };
+
+  useEffect(() => {
+    fetchBookings();
   }, []);
 
-  const handleUpdate = (id) => {
+  const handleUpdate = (id, booking) => {
+    if (!booking) {
+      console.error('Booking object is undefined!');
+      return;
+    }
+  
     const token = localStorage.getItem('token');
     axios.put(`http://127.0.0.1:8000/api/parking/bookings/${id}/`, {
-      date: newDate,
+      parking_spot: booking.parking_spot,
+      parking_type: booking.parking_type,
       start_time: newStartTime,
       end_time: newEndTime
     }, {
       headers: { Authorization: `Bearer ${token}` }
     })
-    .then(() => window.location.reload())
+    .then(() => {
+      setEditingId(null);
+      setNewStartTime('');
+      setNewEndTime('');
+      fetchBookings();
+    })
     .catch(error => console.error('Error updating booking:', error));
   };
+  
+  
 
   const handleDelete = (id) => {
     const token = localStorage.getItem('token');
     axios.delete(`http://127.0.0.1:8000/api/parking/bookings/${id}/`, {
       headers: { Authorization: `Bearer ${token}` }
     })
-    .then(() => window.location.reload())
+    .then(() => {
+      setBookings(prev => prev.filter(b => b.id !== id));
+    })
     .catch(error => console.error('Error deleting booking:', error));
+  };
+
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    return date.toLocaleString();
   };
 
   if (bookings.length === 0) {
@@ -48,7 +71,7 @@ const MyBookings = () => {
   }
 
   return (
-    <div class = "my-bookings">
+    <div className="my-bookings">
       <ul className="booking-list">
         {bookings.map(booking => (
           <li key={booking.id} className="booking-item">
@@ -56,24 +79,40 @@ const MyBookings = () => {
               <strong>Місце:</strong> {booking.parking_spot}
             </div>
             <div>
-              <strong>Дата:</strong> {booking.date}
+              <strong>Дата:</strong> {formatDateTime(booking.start_time)} - {formatDateTime(booking.end_time)}
             </div>
-            <div>
-              <strong>Час:</strong> {booking.start_time} - {booking.end_time}
-            </div>
-            
+
             {editingId === booking.id ? (
               <div className="edit-form">
-                <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} />
-                <input type="time" value={newStartTime} onChange={(e) => setNewStartTime(e.target.value)} />
-                <input type="time" value={newEndTime} onChange={(e) => setNewEndTime(e.target.value)} />
-                <button onClick={() => handleUpdate(booking.id)}>Зберегти</button>
+                <label>Початок:</label>
+                <input 
+                  type="datetime-local" 
+                  value={newStartTime} 
+                  onChange={(e) => setNewStartTime(e.target.value)} 
+                />
+                <label>Кінець:</label>
+                <input 
+                  type="datetime-local" 
+                  value={newEndTime} 
+                  onChange={(e) => setNewEndTime(e.target.value)} 
+                />
+                <button onClick={() => handleUpdate(booking.id, booking)}>Зберегти</button>
+                <button className="cancel-button" onClick={() => setEditingId(null)}>Скасувати</button>
               </div>
             ) : (
-              <button onClick={() => setEditingId(booking.id)}>Редагувати</button>
+              <>
+                <button 
+                  onClick={() => {
+                    setEditingId(booking.id);
+                    setNewStartTime(booking.start_time.slice(0,16)); 
+                    setNewEndTime(booking.end_time.slice(0,16));
+                  }}
+                >
+                  Редагувати
+                </button>
+                <button className="cancel-button" onClick={() => handleDelete(booking.id)}>Видалити бронювання</button>
+              </>
             )}
-            
-            <button className="cancel-button" onClick={() => handleDelete(booking.id)}>Скасувати</button>
           </li>
         ))}
       </ul>

@@ -53,10 +53,12 @@ const AccountPage = ({ setIsAuthenticated }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token");  
     setIsAuthenticated(false);
-    navigate("/register");
-  };
+    navigate("/login");
+};
+ 
+  
 
   return (
     <div className="account-page">
@@ -83,7 +85,7 @@ const AccountPage = ({ setIsAuthenticated }) => {
         <button onClick={handleUpdate}>Зберегти зміни</button>
         {error && <p className="error">{error}</p>}
 
-        <Link to="/login" onClick={handleLogout}>Вихід</Link>
+        <button onClick={handleLogout}>Вийти з акаунта</button>
       </>
     </div>
   );

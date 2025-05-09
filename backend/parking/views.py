@@ -26,12 +26,15 @@ class ParkingSpotRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView
     permission_classes = [IsAdminOrReadOnly]
 
 class BookingListCreateView(generics.ListCreateAPIView):
-    queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        return Booking.objects.filter(user=self.request.user)
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
 
 
 class AdminStatisticsView(APIView):
@@ -46,3 +49,8 @@ class AdminStatisticsView(APIView):
             'total_parking_spots': spots_count,
             'total_bookings': bookings_count
         })
+
+class BookingRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [permissions.IsAuthenticated]
