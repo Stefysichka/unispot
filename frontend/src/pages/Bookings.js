@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+function toDatetimeLocalValue(date) {
+  const local = new Date(date);
+  const offset = local.getTimezoneOffset();
+  const localDate = new Date(local.getTime() - offset * 60000);
+  return localDate.toISOString().slice(0, 16); 
+}
+
+
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -34,8 +42,9 @@ const MyBookings = () => {
     axios.put(`http://127.0.0.1:8000/api/parking/bookings/${id}/`, {
       parking_spot: booking.parking_spot,
       parking_type: booking.parking_type,
-      start_time: newStartTime,
-      end_time: newEndTime
+      start_time: new Date(newStartTime).toISOString(),
+      end_time: new Date(newEndTime).toISOString(),
+
     }, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -104,8 +113,8 @@ const MyBookings = () => {
                 <button 
                   onClick={() => {
                     setEditingId(booking.id);
-                    setNewStartTime(booking.start_time.slice(0,16)); 
-                    setNewEndTime(booking.end_time.slice(0,16));
+                    setNewStartTime(toDatetimeLocalValue(booking.start_time));
+                    setNewEndTime(toDatetimeLocalValue(booking.end_time));
                   }}
                 >
                   Редагувати

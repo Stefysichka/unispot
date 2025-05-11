@@ -3,9 +3,21 @@ import axios from 'axios';
 
 const AdminSpots = () => {
   const [spots, setSpots] = useState([]);
-  const [newSpot, setNewSpot] = useState({ location: '', latitude: '', longitude: '', spot_type: 'regular' });
+  const [newSpot, setNewSpot] = useState({
+    location: '',
+    latitude: '',
+    longitude: '',
+    max_regular: 0,
+    max_accessible: 0
+  });
   const [editSpotId, setEditSpotId] = useState(null);
-  const [editSpot, setEditSpot] = useState({ location: '', latitude: '', longitude: '', spot_type: 'regular' });
+  const [editSpot, setEditSpot] = useState({
+    location: '',
+    latitude: '',
+    longitude: '',
+    max_regular: 0,
+    max_accessible: 0
+  });
 
   const fetchSpots = () => {
     const token = localStorage.getItem('token');
@@ -33,7 +45,13 @@ const AdminSpots = () => {
     axios.post('http://127.0.0.1:8000/api/parking/spots/', newSpot, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(() => {
-      setNewSpot({ location: '', latitude: '', longitude: '', spot_type: 'regular' });
+      setNewSpot({
+        location: '',
+        latitude: '',
+        longitude: '',
+        max_regular: 0,
+        max_accessible: 0
+      });
       fetchSpots();
     });
   };
@@ -44,7 +62,8 @@ const AdminSpots = () => {
       location: spot.location,
       latitude: spot.latitude,
       longitude: spot.longitude,
-      spot_type: spot.spot_type
+      max_regular: spot.max_regular,
+      max_accessible: spot.max_accessible
     });
   };
 
@@ -55,13 +74,19 @@ const AdminSpots = () => {
       headers: { Authorization: `Bearer ${token}` }
     }).then(() => {
       setEditSpotId(null);
-      setEditSpot({ location: '', latitude: '', longitude: '', spot_type: 'regular' });
+      setEditSpot({
+        location: '',
+        latitude: '',
+        longitude: '',
+        max_regular: 0,
+        max_accessible: 0
+      });
       fetchSpots();
     });
   };
 
   return (
-    <div class = "admin-spots">
+    <div className="admin-spots">
       <form onSubmit={handleAdd} style={{ marginBottom: '20px' }}>
         <input
           type="text"
@@ -84,13 +109,25 @@ const AdminSpots = () => {
           onChange={(e) => setNewSpot({ ...newSpot, longitude: e.target.value })}
           required
         />
-        <select
-          value={newSpot.spot_type}
-          onChange={(e) => setNewSpot({ ...newSpot, spot_type: e.target.value })}
-        >
-          <option value="regular">Звичайне</option>
-          <option value="accessible">Для осіб з інвалідністю</option>
-        </select>
+        <label>
+          Кількість звичайних місць:
+          <input
+            type="number"
+            value={newSpot.max_regular}
+            onChange={(e) => setNewSpot({ ...newSpot, max_regular: parseInt(e.target.value) || 0 })}
+            required
+          />
+        </label>
+        <label>
+          Кількість місць для інвалідів:
+          <input
+            type="number"
+            value={newSpot.max_accessible}
+            onChange={(e) => setNewSpot({ ...newSpot, max_accessible: parseInt(e.target.value) || 0 })}
+            required
+          />
+        </label>
+
         <button type="submit">Додати місце</button>
       </form>
 
@@ -99,7 +136,7 @@ const AdminSpots = () => {
           <li key={spot.id}>
             {editSpotId === spot.id ? (
               <form onSubmit={handleUpdate} className="edit-form">
-               <div className="edit-form-fields">
+                <div className="edit-form-fields">
                   <input
                     type="text"
                     value={editSpot.location}
@@ -118,13 +155,25 @@ const AdminSpots = () => {
                     onChange={(e) => setEditSpot({ ...editSpot, longitude: e.target.value })}
                     required
                   />
-                  <select
-                    value={editSpot.spot_type}
-                    onChange={(e) => setEditSpot({ ...editSpot, spot_type: e.target.value })}
-                  >
-                    <option value="regular">Звичайне</option>
-                    <option value="accessible">Для осіб з інвалідністю</option>
-                  </select>
+                  <label>
+                    Звичайних місць:
+                    <input
+                      type="number"
+                      value={editSpot.max_regular}
+                      onChange={(e) => setEditSpot({ ...editSpot, max_regular: parseInt(e.target.value) || 0 })}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Місць для інвалідів:
+                    <input
+                      type="number"
+                      value={editSpot.max_accessible}
+                      onChange={(e) => setEditSpot({ ...editSpot, max_accessible: parseInt(e.target.value) || 0 })}
+                      required
+                    />
+                  </label>
+
                 </div>
                 <div className="edit-form-buttons">
                   <button type="submit">Оновити</button>
@@ -132,9 +181,9 @@ const AdminSpots = () => {
                 </div>
               </form>
             ) : (
-              <div className="spot-row"> 
+              <div className="spot-row">
                 <span>
-                  {spot.location} (Lat: {spot.latitude}, Lng: {spot.longitude}) - {spot.spot_type}
+                  {spot.location} (Lat: {spot.latitude}, Lng: {spot.longitude}) – Звичайних: {spot.max_regular}, Інвалідних: {spot.max_accessible}
                 </span>
                 <div className="buttons">
                   <button onClick={() => handleDelete(spot.id)}>Видалити</button>
@@ -145,7 +194,6 @@ const AdminSpots = () => {
           </li>
         ))}
       </ul>
-
     </div>
   );
 };

@@ -19,10 +19,10 @@ const Register = () => {
       });
 
       if (response.ok) {
-        alert("Реєстрація пройшла успішно!");
+        //alert("Реєстрація пройшла успішно!");
         navigate("/login");
       } else {
-        alert("Помилка при реєстрації");
+        //alert("Помилка при реєстрації");
       }
     } catch (error) {
       console.error("Помилка реєстрації:", error);

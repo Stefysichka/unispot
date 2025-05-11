@@ -45,7 +45,7 @@ const AccountPage = ({ setIsAuthenticated }) => {
       }),
     });
     if (response.ok) {
-      alert("Дані оновлені!");
+      //alert("Дані оновлені!");
       navigate("/home");
     } else {
       setError("Помилка при оновленні профілю");
@@ -85,7 +85,8 @@ const AccountPage = ({ setIsAuthenticated }) => {
         <button onClick={handleUpdate}>Зберегти зміни</button>
         {error && <p className="error">{error}</p>}
 
-        <button onClick={handleLogout}>Вийти з акаунта</button>
+        <button onClick={handleLogout}>Вийти з аккаунту</button>
+        <Link to="/home">Повернутись на головну</Link>
       </>
     </div>
   );

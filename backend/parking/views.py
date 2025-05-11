@@ -20,6 +20,7 @@ class ParkingSpotListCreateView(generics.ListCreateAPIView):
             serializer.save()
 
 
+
 class ParkingSpotRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ParkingSpot.objects.all()
     serializer_class = ParkingSpotSerializer
