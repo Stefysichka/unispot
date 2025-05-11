@@ -38,7 +38,7 @@ Frontend:
 ## 💾 Як запустити проєкт
 
 1. Клонувати репозиторій:
-git clone https://github.com/твій-акаунт/unispot.git
+git clone https://github.com/Stefysichka/unispot.git
 
 2. Перейти в папку проєкту:
 cd unispot
